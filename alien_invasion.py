@@ -11,7 +11,10 @@ class AlienInvasion:
         pygame.init()
             
         self.settings = Settings()                      # Instance Settings (module settings.py)        
-        self.screen = pygame.display.set_mode((self.settings.screenWidth, self.settings.screenHeight))
+        # self.screen = pygame.display.set_mode((self.settings.screenWidth, self.settings.screenHeight))
+        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+        self.settings.screenWidth = self.screen.get_rect().width
+        self.settings.screenHeight = self.screen.get_rect().height
         pygame.display.set_caption(self.settings.setCaption)
         self.ship = Ship(self)                          # Instance Ship (module ship.py)
         
@@ -29,16 +32,26 @@ class AlienInvasion:
                 sys.exit()
                 
             elif event.type == pygame.KEYDOWN:  
-                if event.key == pygame.K_LEFT:
-                    self.ship.movingLeft = True                   
-                if event.key == pygame.K_RIGHT:
-                    self.ship.movingRight = True
+                self._checkKeydownEvent(event)
                     
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT:
-                    self.ship.movingLeft = False
-                if event.key == pygame.K_RIGHT:
-                    self.ship.movingRight = False
+                self._checkKeyupEvent(event)    
+        
+    def _checkKeydownEvent(self, event):
+        """ Respond to keydown event """
+        if event.key == pygame.K_LEFT:
+                self.ship.movingLeft = True                   
+        elif event.key == pygame.K_RIGHT:
+            self.ship.movingRight = True
+        elif event.key == pygame.K_q or pygame.K_ESCAPE:
+            sys.exit()
+            
+    def _checkKeyupEvent(self, event):
+        """ Respond to keyup event """
+        if event.key == pygame.K_LEFT:
+            self.ship.movingLeft = False
+        elif event.key == pygame.K_RIGHT:
+            self.ship.movingRight = False
     
     def _updateScreen(self):
         """ Update the screen, and flip to the new screen. """
