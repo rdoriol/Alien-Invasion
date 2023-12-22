@@ -5,7 +5,6 @@ class Settings():
             # Screen settings
         self.screenWidth = 1200
         self.screenHeight = 700
-        # self.bgColor = (230, 230, 230)
         self.bgColor = (19, 19, 19)
         self.setCaption = "Alien Invasion"
         
@@ -17,3 +16,4 @@ class Settings():
         self.bulletHeight = 15
         self.bulletSpeed = 1.0
         self.bulletColor = (60, 60, 60)
+        self.bulletAlowed = 3
